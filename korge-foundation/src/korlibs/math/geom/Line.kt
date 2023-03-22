@@ -11,7 +11,7 @@ typealias Line2 = Line
 typealias Line = Line2D
 
 //@KormaValueApi
-data class Line2D(val a: Vector2D, val b: Vector2D) : Shape2D {
+value class Line2D(val a: Vector2D, val b: Vector2D) : Shape2D {
     override val area: Double get() = 0.0
     override val perimeter: Double get() = length
 

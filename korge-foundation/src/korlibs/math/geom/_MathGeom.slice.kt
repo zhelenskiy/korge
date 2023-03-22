@@ -7,7 +7,7 @@ import korlibs.math.*
 import korlibs.math.geom.*
 import korlibs.memory.*
 
-data class RectCoords(
+value class RectCoords(
     override val tlX: Float, override val tlY: Float,
     override val trX: Float, override val trY: Float,
     override val brX: Float, override val brY: Float,

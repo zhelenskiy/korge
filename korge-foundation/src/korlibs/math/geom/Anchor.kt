@@ -5,7 +5,7 @@ import korlibs.math.interpolation.*
 typealias Anchor = Anchor2D
 typealias Anchor3 = Anchor3F
 
-data class Anchor2D(val sx: Double, val sy: Double) : Interpolable<Anchor> {
+value class Anchor2D(val sx: Double, val sy: Double) : Interpolable<Anchor> {
     fun toVector(): Vector2D = Vector2D(sx, sy)
 
     val ratioX: Ratio get() = sx.toRatio()
@@ -65,7 +65,7 @@ data class Anchor2D(val sx: Double, val sy: Double) : Interpolable<Anchor> {
 operator fun Size.times(anchor: Anchor): Point = this.toVector() * anchor.toVector()
 //operator fun SizeInt.times(anchor: Anchor): PointInt = (this.toVector().toFloat() * anchor.toVector()).toInt()
 
-data class Anchor3F(val sx: Float, val sy: Float, val sz: Float) : Interpolable<Anchor3F> {
+value class Anchor3F(val sx: Float, val sy: Float, val sz: Float) : Interpolable<Anchor3F> {
     fun toVector(): Vector3F = Vector3F(sx, sy, sz)
 
     val floatX: Float get() = sx

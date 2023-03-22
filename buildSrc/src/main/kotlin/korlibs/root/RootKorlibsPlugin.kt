@@ -280,6 +280,7 @@ object RootKorlibsPlugin {
                             if (!JvmAddOpens.beforeJava9) jvmArgs(*JvmAddOpens.createAddOpensTypedArray())
                         }
                         if (!JvmAddOpens.beforeJava9) jvmTest.jvmArgs(*JvmAddOpens.createAddOpensTypedArray())
+                        jvmTest.jvmArgs("--enable-preview")
                         if (headlessTests) jvmTest.systemProperty("java.awt.headless", "true")
                     }
                 }
@@ -315,19 +316,19 @@ object RootKorlibsPlugin {
                             logger.info("!!!!! wasmBrowserTest PATCH :: $wasmBrowserTest : ${wasmBrowserTest::class.java}")
 
                             val npmProjectDir = wasmBrowserTest.compilation.npmProject.dir
-                            val projectName = npmProjectDir.name
-                            val uninstantiatedMjs = File(npmProjectDir, "kotlin/$projectName.uninstantiated.mjs")
-
-                            logger.info("# Updating: $uninstantiatedMjs")
-
-                            try {
-                                uninstantiatedMjs.writeText(uninstantiatedMjs.readText().replace(
-                                    "'kotlin.test.jsThrow' : (jsException) => { throw e },",
-                                    "'kotlin.test.jsThrow' : (jsException) => { throw jsException },",
-                                ))
-                            } catch (e: Throwable) {
-                                e.printStackTrace()
-                            }
+//                            val projectName = npmProjectDir.name
+//                            val uninstantiatedMjs = File(npmProjectDir, "kotlin/$projectName.uninstantiated.mjs")
+//
+//                            logger.info("# Updating: $uninstantiatedMjs")
+//
+//                            try {
+//                                uninstantiatedMjs.writeText(uninstantiatedMjs.readText().replace(
+//                                    "'kotlin.test.jsThrow' : (jsException) => { throw e },",
+//                                    "'kotlin.test.jsThrow' : (jsException) => { throw jsException },",
+//                                ))
+//                            } catch (e: Throwable) {
+//                                e.printStackTrace()
+//                            }
                         }
                     }
                     js(org.jetbrains.kotlin.gradle.plugin.KotlinJsCompilerType.IR) {

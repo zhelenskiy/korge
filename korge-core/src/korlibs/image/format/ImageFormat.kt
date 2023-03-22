@@ -42,7 +42,7 @@ interface ImageFormatEncoderDecoder : ImageFormatEncoder, ImageFormatDecoder
 
 abstract class ImageFormat(vararg exts: String) : BaseImageDecodingProps, ImageFormatEncoderDecoder {
     override val decodingProps: ImageDecodingProps by lazy { this.toProps() }
-	val extensions = exts.map { it.toLowerCase().trim() }.toSet()
+	val extensions = exts.map { it.lowercase().trim() }.toSet()
     open fun readImageContainer(s: SyncStream, props: ImageDecodingProps = ImageDecodingProps.DEFAULT): ImageDataContainer = ImageDataContainer(listOf(readImage(s, props)))
 	open fun readImage(s: SyncStream, props: ImageDecodingProps = ImageDecodingProps.DEFAULT): ImageData = TODO()
 	open fun writeImage(image: ImageData, s: SyncStream, props: ImageEncodingProps): Unit = throw UnsupportedOperationException()

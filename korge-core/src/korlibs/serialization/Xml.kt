@@ -41,7 +41,7 @@ data class Xml(
     fun withExtraChild(node: Xml) = copy(allChildren = allChildren + node)
 
     val attributesLC = attributes.toCaseInsensitiveMap()
-    val nameLC: String = name.toLowerCase().trim()
+    val nameLC: String = name.lowercase().trim()
     val descendants: Sequence<Xml> get() = allChildren.asSequence().flatMap { it.descendants + it }
     val allChildrenNoComments get() = allChildren.filter { !it.isComment }
     val allNodeChildren get() = allChildren.filter { it.isNode }
@@ -185,7 +185,7 @@ data class Xml(
     fun boolean(name: String, defaultValue: Boolean = false): Boolean = booleanOrNull(name) ?: defaultValue
 
     fun booleanOrNull(name: String): Boolean? =
-        when (str(name).toLowerCase()) {
+        when (str(name).lowercase()) {
             "true", "1" -> true
             "false", "0" -> false
             else -> null

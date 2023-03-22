@@ -694,7 +694,7 @@ class Bezier private constructor(val points: PointList, dummy: Unit) : Curve, Is
         override fun toString(): String = "Extrema(x=${xt.contentToString()}, y=${yt.contentToString()})"
     }
 
-    data class Curvature(
+    value class Curvature(
         val k: Double = 0.0,
         val r: Double = 0.0,
         val dk: Double = 0.0,
@@ -1321,7 +1321,7 @@ class Bezier private constructor(val points: PointList, dummy: Unit) : Curve, Is
             return ABCResult(A = A, B = B, C = C, S = S, E = E)
         }
 
-        data class ABCResult(
+        value class ABCResult(
             val A: Point,
             val B: Point,
             val C: Point,
@@ -1502,7 +1502,7 @@ fun Curve.getEquidistantPoints(count: Int = this.recommendedDivisions(), out: Po
     return _getPoints(count, equidistant = true, out = out)
 }
 
-data class CurveLUT(val curve: Curve, val points: PointArrayList, val ts: DoubleArrayList, private val _estimatedLengths: DoubleArrayList) {
+value class CurveLUT(val curve: Curve, val points: PointArrayList, val ts: DoubleArrayList, private val _estimatedLengths: DoubleArrayList) {
     constructor(curve: Curve, capacity: Int) : this(
         curve,
         PointArrayList(capacity),
@@ -1658,7 +1658,7 @@ data class Curves(val beziers: List<Bezier>, val closed: Boolean) : Curve, Extra
 
     override val order: Int get() = -1
 
-    data class CurveInfo(
+    value class CurveInfo(
         val index: Int,
         val curve: Bezier,
         val startLength: Double,
@@ -1880,7 +1880,7 @@ object SegmentEmitter {
 }
 */
 
-data class CurveSplit(
+value class CurveSplit(
     val base: Bezier,
     val left: SubBezier,
     val right: SubBezier,

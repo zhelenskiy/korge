@@ -113,7 +113,7 @@ val PathInfo.extension: String get() = baseName.substringAfterLast('.', "")
 /**
  * /path\to/file.1.EXT -> ext
  */
-val PathInfo.extensionLC: String get() = extension.toLowerCase()
+val PathInfo.extensionLC: String get() = extension.lowercase()
 
 /**
  * /path\to/file.1.EXT -> 1.EXT
@@ -123,7 +123,7 @@ val PathInfo.compoundExtension: String get() = baseName.substringAfter('.', "")
 /**
  * /path\to/file.1.EXT -> 1.ext
  */
-val PathInfo.compoundExtensionLC: String get() = compoundExtension.toLowerCase()
+val PathInfo.compoundExtensionLC: String get() = compoundExtension.lowercase()
 
 /**
  * /path\to/file.1.jpg -> MimeType("image/jpeg", listOf("jpg", "jpeg"))

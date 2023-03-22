@@ -2,11 +2,11 @@ package korlibs.math.geom
 
 typealias PointInt = Vector2I
 
-data class Vector3I(val x: Int, val y: Int, val z: Int)
-data class Vector4I(val x: Int, val y: Int, val z: Int, val w: Int)
+value class Vector3I(val x: Int, val y: Int, val z: Int)
+value class Vector4I(val x: Int, val y: Int, val z: Int, val w: Int)
 
 //@KormaValueApi
-data class Vector2I(val x: Int, val y: Int) {
+value class Vector2I(val x: Int, val y: Int) {
     //operator fun component1(): Int = x
     //operator fun component2(): Int = y
     //fun copy(x: Int = this.x, y: Int = this.y): Vector2Int = Vector2Int(x, y)

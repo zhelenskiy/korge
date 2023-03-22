@@ -6,14 +6,14 @@ import kotlin.math.*
 typealias Size = Size2D
 typealias Size3 = Size2F
 
-data class Size2F(val width: Float, val height: Float)
-data class Size3F(val width: Float, val height: Float, val depth: Float)
-data class Size3D(val width: Double, val height: Double, val depth: Double)
+value class Size2F(val width: Float, val height: Float)
+value class Size3F(val width: Float, val height: Float, val depth: Float)
+value class Size3D(val width: Double, val height: Double, val depth: Double)
 
 /**
  * A class representing a size with a [width] and a [height] as Float.
  */
-data class Size2D(val width: Double, val height: Double) {//: Sizeable {
+value class Size2D(val width: Double, val height: Double) {//: Sizeable {
     companion object {
         inline operator fun invoke(width: Number, height: Number): Size2D = Size2D(width.toDouble(), height.toDouble())
         val ZERO = Size(0.0, 0.0)
@@ -26,6 +26,9 @@ data class Size2D(val width: Double, val height: Double) {//: Sizeable {
     fun avgComponent(): Double = width * 0.5 + height * 0.5
     fun minComponent(): Double = min(width, height)
     fun maxComponent(): Double = max(width, height)
+    operator fun component1(): Double = width
+    operator fun component2(): Double = height
+    fun copy(width: Double = this.width, height: Double = this.height): Size2D = Size2D(width, height)
 
     val area: Double get() = width * height
     val perimeter: Double get() = width * 2 + height * 2
@@ -97,7 +100,7 @@ interface SizeableInt {
 
 typealias SizeI = SizeInt
 
-data class SizeInt(val width: Int, val height: Int) {
+value class SizeInt(val width: Int, val height: Int) {
     constructor() : this(0, 0)
 
     fun avgComponent(): Int = (width + height) / 2

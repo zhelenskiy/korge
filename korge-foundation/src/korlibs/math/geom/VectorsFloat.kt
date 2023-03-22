@@ -25,7 +25,7 @@ fun vec4(x: Float, y: Float, z: Float, w: Float = 1f): Vector4F = Vector4F(x, y,
 //@Deprecated("", ReplaceWith("p", "korlibs.math.geom.Point")) fun Point(p: Vector2F): Vector2F = p
 //@Deprecated("", ReplaceWith("p", "korlibs.math.geom.Vector2")) fun Vector2(p: Vector2F): Vector2F = p
 
-data class Vector2F(val x: Float, val y: Float) {
+value class Vector2F(val x: Float, val y: Float) {
     constructor(x: Double, y: Double) : this(x.toFloat(), y.toFloat())
     constructor(x: Int, y: Int) : this(x.toFloat(), y.toFloat())
 
@@ -329,7 +329,7 @@ fun Vector2F.toIntRound(): Vector2I = Vector2I(x.toIntRound(), y.toIntRound())
 fun Vector2F.toIntFloor(): Vector2I = Vector2I(x.toIntFloor(), y.toIntFloor())
 
 
-data class Vector3F(val x: Float, val y: Float, val z: Float) : IsAlmostEqualsF<Vector3F> {
+value class Vector3F(val x: Float, val y: Float, val z: Float) : IsAlmostEqualsF<Vector3F> {
     companion object {
         val NaN = Vector3F(Float.NaN, Float.NaN, Float.NaN)
 
@@ -426,6 +426,8 @@ data class Vector3F(val x: Float, val y: Float, val z: Float) : IsAlmostEqualsF<
         this.x.isAlmostEquals(other.x, epsilon) &&
             this.y.isAlmostEquals(other.y, epsilon) &&
             this.z.isAlmostEquals(other.z, epsilon)
+
+    fun copy(x: Float = this.x, y: Float = this.y, z: Float = this.z): Vector3F = Vector3F(x, y, z)
 }
 
 operator fun Int.times(v: Vector3F): Vector3F = v * this
@@ -439,7 +441,7 @@ fun Vector3F.clamp(min: Float, max: Float): Vector3F = Vector3F(x.clamp(min, max
 fun Vector3F.clamp(min: Double, max: Double): Vector3F = clamp(min.toFloat(), max.toFloat())
 fun Vector3F.clamp(min: Vector3F, max: Vector3F): Vector3F = Vector3F(x.clamp(min.x, max.x), y.clamp(min.y, max.y), z.clamp(min.z, max.z))
 
-data class Vector4F(val x: Float, val y: Float, val z: Float, val w: Float) {
+value class Vector4F(val x: Float, val y: Float, val z: Float, val w: Float) {
     companion object {
         val ZERO = Vector4F(0f, 0f, 0f, 0f)
         val ONE = Vector4F(1f, 1f, 1f, 1f)
@@ -528,7 +530,7 @@ fun Vector4F.clamp(min: Float, max: Float): Vector4F = Vector4F(x.clamp(min, max
 fun Vector4F.clamp(min: Double, max: Double): Vector4F = clamp(min.toFloat(), max.toFloat())
 fun Vector4F.clamp(min: Vector4F, max: Vector4F): Vector4F = Vector4F(x.clamp(min.x, max.x), y.clamp(min.y, max.y), z.clamp(min.z, max.z), w.clamp(min.w, max.w))
 
-data class PointFixed(val x: Fixed, val y: Fixed) {
+value class PointFixed(val x: Fixed, val y: Fixed) {
     operator fun unaryMinus(): PointFixed = PointFixed(-this.x, -this.y)
     operator fun unaryPlus(): PointFixed = this
 
@@ -542,7 +544,7 @@ data class PointFixed(val x: Fixed, val y: Fixed) {
     override fun toString(): String = "($x, $y)"
 }
 
-data class CylindricalVector(
+value class CylindricalVector(
     val radius: Double = 1.0,
     val angle: Angle = Angle.ZERO,
     val y: Double = 0.0,

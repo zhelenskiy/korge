@@ -25,6 +25,7 @@ object AddFreeCompilerArgs {
             options.freeCompilerArgs.apply {
                 add("-Xskip-prerelease-check")
                 if (project.findProperty("enableMFVC") == "true") add("-Xvalue-classes")
+                if (project.findProperty("enableValhalla") == "true") addAll("-Xvalhalla-value-classes", "-Xjvm-enable-preview")
                 if (target.name == "android" || target.name == "jvm") add("-Xno-param-assertions")
                 add("-opt-in=kotlinx.cinterop.ExperimentalForeignApi")
             }

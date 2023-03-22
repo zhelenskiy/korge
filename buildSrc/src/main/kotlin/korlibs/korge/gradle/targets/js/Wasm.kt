@@ -34,20 +34,21 @@ fun Project.configureWasm(projectType: ProjectType, binaryen: Boolean = false) {
 }
 
 open class WasmJsCreateIndexTask : DefaultTask() {
-    private val npmDir: File = project.kotlin.wasmJs().compilations["main"]!!.npmProject.dir
+//    @OptIn(ExperimentalWasmDsl::class)
+//    private val npmDir: File = project.kotlin.wasmJs().compilations["main"]!!.npmProject.dir
 
     @TaskAction
     fun run() {
-        File(npmDir, "kotlin/index.html").also { it.parentFile.mkdirs() }.writeText(
-            """
-            <html>
-                <script type = 'module'>
-                    import module from "./${npmDir.name}.mjs"
-                    console.log(module)
-                    //instantiate();
-                </script>
-            </html>
-        """.trimIndent()
-        )
+//        File(npmDir, "kotlin/index.html").also { it.parentFile.mkdirs() }.writeText(
+//            """
+//            <html>
+//                <script type = 'module'>
+//                    import module from "./${npmDir.name}.mjs"
+//                    console.log(module)
+//                    //instantiate();
+//                </script>
+//            </html>
+//        """.trimIndent()
+//        )
     }
 }

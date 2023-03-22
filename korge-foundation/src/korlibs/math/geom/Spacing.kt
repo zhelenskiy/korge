@@ -2,7 +2,7 @@ package korlibs.math.geom
 
 import korlibs.number.*
 
-data class Spacing(
+value class Spacing(
     val vertical: Double,
     val horizontal: Double
 ) {

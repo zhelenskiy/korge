@@ -8,7 +8,7 @@ typealias Ray2 = Ray
 
 /** Represents an infinite [Ray] starting at [point] in the specified [direction] with an [angle] */
 //inline class Ray(val data: Float4Pack) {
-data class Ray2D
+value class Ray2D
 /** Constructs a [Ray] starting from [point] in the specified [direction] */
 private constructor(
     /** Starting point */
@@ -48,7 +48,7 @@ private constructor(
 
 typealias Ray3 = Ray3F
 
-data class Ray3F(val pos: Vector3F, val dir: Vector3F) {//: Shape3D {
+value class Ray3F(val pos: Vector3F, val dir: Vector3F) {//: Shape3D {
     //override val center: Vector3 get() = pos
     //override val volume: Float = 0f
 }

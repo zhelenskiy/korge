@@ -54,7 +54,7 @@ enum class LineCap {
     }
 }
 
-data class StrokeInfo(
+value class StrokeInfo(
     val thickness: Double = 1.0,
     val pixelHinting: Boolean = false,
     val scaleMode: LineScaleMode = LineScaleMode.NORMAL,

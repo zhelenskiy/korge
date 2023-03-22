@@ -29,7 +29,7 @@ data class Circle(override val center: Point, val radius: Double) : AbstractShap
     override fun containsPoint(p: Point): Boolean = (p - center).length <= radius
 }
 
-data class Ellipse(override val center: Point, val radius: Size) : Shape2D {
+value class Ellipse(override val center: Point, val radius: Size) : Shape2D {
     override val area: Double get() = (PI * radius.width * radius.height)
     override val perimeter: Double get() {
         if (radius.width == radius.height) return (PI2 * radius.width) // Circle formula

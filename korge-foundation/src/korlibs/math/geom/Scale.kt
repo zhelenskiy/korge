@@ -2,7 +2,7 @@ package korlibs.math.geom
 
 //@KormaValueApi
 //inline class Scale internal constructor(internal val raw: Float2Pack) {
-data class Scale(val scaleX: Double, val scaleY: Double) {
+value class Scale(val scaleX: Double, val scaleY: Double) {
     companion object {
         val IDENTITY = Scale(1f, 1f)
     }

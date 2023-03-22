@@ -8,7 +8,7 @@ import kotlin.math.*
 /**
  * Useful for representing rotations and scales.
  */
-data class Matrix3 private constructor(
+value class Matrix3 private constructor(
     internal val data: FloatArray,
 ) : IsAlmostEqualsF<Matrix3> {
     override fun equals(other: Any?): Boolean = other is Matrix3 && this.data.contentEquals(other.data)

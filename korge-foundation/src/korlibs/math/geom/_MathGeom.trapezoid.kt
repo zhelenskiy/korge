@@ -22,7 +22,7 @@ import kotlin.math.*
  * +--------------+
  * (x1a, y1)     (x1b, y1)
  */
-data class TrapezoidInt(
+value class TrapezoidInt(
     val x0a: Int, val x0b: Int, val y0: Int,
     val x1a: Int, val x1b: Int, val y1: Int,
 ) {
@@ -74,7 +74,7 @@ fun List<TrapezoidInt>.pointInside(x: Int, y: Int, assumeSorted: Boolean = false
     return null
 }
 
-data class TriangleInt(
+value class TriangleInt(
     val p0: Vector2I,
     val p1: Vector2I,
     val p2: Vector2I,
@@ -445,7 +445,7 @@ fun FTrapezoidsInt.triangulate(out: FTrianglesInt = FTrianglesInt()): FTriangles
 }
 
 // @TODO: What about [Line]?
-data class SegmentInt(
+value class SegmentInt(
     val p0: Vector2I, val p1: Vector2I
 )
 

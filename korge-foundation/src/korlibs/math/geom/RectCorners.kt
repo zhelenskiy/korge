@@ -1,6 +1,6 @@
 package korlibs.math.geom
 
-data class RectCorners(
+value class RectCorners(
     val topLeft: Double,
     val topRight: Double,
     val bottomRight: Double,

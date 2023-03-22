@@ -42,15 +42,15 @@ fun Project.configureErrorableEsbuild() {
 
         val esbuildVersion = korge.esbuildVersion
         doFirst {
-            val npmCmd = arrayOf(
-                File(env.nodeExecutable),
-                File(env.nodeDir, "lib/node_modules/npm/bin/npm-cli.js").takeIf { it.exists() }
-                    ?: File(env.nodeDir, "node_modules/npm/bin/npm-cli.js").takeIf { it.exists() }
-                    ?: error("Can't find npm-cli.js in ${env.nodeDir} standard folders")
-            )
+//            val npmCmd = arrayOf<File?>(
+//                File(env.nodeExecutable),
+//                File(env.nodeDir, "lib/node_modules/npm/bin/npm-cli.js").takeIf { it.exists() }
+//                    ?: File(env.nodeDir, "node_modules/npm/bin/npm-cli.js").takeIf { it.exists() }
+//                    ?: error("Can't find npm-cli.js in ${env.nodeDir} standard folders")
+//            )
 
             environment("PATH", ENV_PATH)
-            commandLine(*npmCmd, "-g", "install", "esbuild@$esbuildVersion", "--prefix", esbuildFolder, "--scripts-prepend-node-path", "true")
+//            commandLine(*npmCmd, "-g", "install", "esbuild@$esbuildVersion", "--prefix", esbuildFolder, "--scripts-prepend-node-path", "true")
         }
     }
 
@@ -108,7 +108,7 @@ fun Project.configureErrorableEsbuild() {
             dependsOn(compileExecutableKotlinJs)
 
             //println("compileExecutableKotlinJs:" + compileExecutableKotlinJs::class)
-            val jsPath = compileExecutableKotlinJs.outputFileProperty.get()
+//            val jsPath = compileExecutableKotlinJs.outputFileProperty.get()
             val output = File(wwwFolder, "${project.name}.js")
             //println("jsPath=$jsPath")
             //println("jsPath.parentFile=${jsPath.parentFile}")
@@ -124,7 +124,7 @@ fun Project.configureErrorableEsbuild() {
                     add("--minify")
                     add("--sourcemap=external")
                 }
-                add(jsPath)
+//                add(jsPath)
                 add("--outfile=$output")
                 // @TODO: Close this command on CTRL+C
                 //if (run) add("--servedir=$wwwFolder")

@@ -13,7 +13,7 @@ class MemoryNodeTree(val caseSensitive: Boolean = true) {
         val isDirectory: Boolean = false,
         parent: Node? = null
     ) : Iterable<Node> {
-        val nameLC = name.toLowerCase()
+        val nameLC = name.lowercase()
         override fun iterator(): Iterator<Node> = children.values.iterator()
 
         var parent: Node? = null

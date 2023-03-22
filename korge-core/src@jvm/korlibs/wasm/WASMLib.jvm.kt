@@ -8,7 +8,13 @@ import kotlin.reflect.*
 //actual open class WASMLib actual constructor(content: ByteArray) : IWASMLib by InterpreterWASMLib(content)
 
 //open class WASMLib2(content: ByteArray) : IWASMLib, BaseWASMLib(content) {
-actual open class WASMLib actual constructor(content: ByteArray) : IWASMLib by JVMWasmLib(content)
+actual open class WASMLib actual constructor(content: ByteArray) : IWASMLib {
+    private val delegate = JVMWasmLib(content)
+    actual override val content: ByteArray = delegate.content
+    actual override fun close() {
+        delegate.close()
+    }
+}
 
 class JVMWasmLib(content: ByteArray) : IWASMLib, BaseWASMLib(content) {
     private val wasm: WasmRunJVMJIT by lazy {

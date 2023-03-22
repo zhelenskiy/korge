@@ -7,6 +7,7 @@ import korlibs.io.compression.deflate.*
 import korlibs.io.stream.*
 import korlibs.math.geom.*
 import korlibs.memory.*
+import korlibs.wasm.WASMLib
 import kotlin.coroutines.*
 
 object WEBP : ImageFormat("webp") {
@@ -34,7 +35,9 @@ object WEBP : ImageFormat("webp") {
 }
 
 // https://github.com/alex-michaud/wasm-tutorial-webp-decode
-private class WebpWASM(bytes: ByteArray) : korlibs.wasm.WASMLib(bytes) {
+private class WebpWASM(bytes: ByteArray) : WASMLib(bytes) {
+    override val content: ByteArray = bytes
+    override fun close() = super<WASMLib>.close()
     constructor() : this(WEBP_WASM_BYTES)
     fun decode(data: Int, size: Int, widthPtr: Int, heightPtr: Int): Int = invokeFuncInt("decode", data, size, widthPtr, heightPtr)
     fun get_info(data: Int, size: Int): Int = invokeFuncInt("get_info", data, size)

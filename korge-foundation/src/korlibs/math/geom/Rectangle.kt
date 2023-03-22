@@ -13,13 +13,13 @@ typealias Rectangle = RectangleD
 //@KormaValueApi
 //inline class Rectangle(val data: Float4Pack) : Shape2D, Interpolable<Rectangle> {
 //inline class Rectangle(val data: Float4) : Shape2D {
-data class RectangleD(val x: Double, val y: Double, val width: Double, val height: Double) : Shape2D, IsAlmostEquals<RectangleD> {
+value class RectangleD(val x: Double, val y: Double, val width: Double, val height: Double) : Shape2D, IsAlmostEquals<RectangleD> {
     val int: RectangleInt get() = toInt()
 
-    //operator fun component1(): Float = x
-    //operator fun component2(): Float = y
-    //operator fun component3(): Float = width
-    //operator fun component4(): Float = height
+    operator fun component1(): Double = x
+    operator fun component2(): Double = y
+    operator fun component3(): Double = width
+    operator fun component4(): Double = height
     //val x: Float get() = data.f0
     //val y: Float get() = data.f1
     //val width: Float get() = data.f2
@@ -240,6 +240,9 @@ data class RectangleD(val x: Double, val y: Double, val width: Double, val heigh
         Rectangle.fromBounds(left, top, right, bottom)
 
     fun translated(delta: Point): Rectangle = copy(x = this.x + delta.x, y = this.y + delta.y)
+    fun copy(
+        x: Double = this.x, y: Double = this.y, width: Double = this.width, height: Double = this.height
+    ): Rectangle = Rectangle(x, y, width, height)
 
     fun transformed(m: Matrix): Rectangle {
         val tl = m.transform(topLeft)
@@ -305,7 +308,7 @@ fun Rectangle.place(item: Size, anchor: Anchor, scale: ScaleMode): Rectangle {
 typealias RectangleInt = RectangleI
 
 //@KormaValueApi
-data class RectangleI(
+value class RectangleI(
     val x: Int, val y: Int,
     val width: Int, val height: Int,
 ) {

@@ -82,6 +82,7 @@ fun Project.configureJvmRunJvm(isRootKorlibs: Boolean) {
                 mainClass.set(entry.jvmMainClassName())
                 val beforeJava9 = JvmAddOpens.beforeJava9
                 if (!beforeJava9) jvmArgs(project.korge.javaAddOpens)
+                jvmArgs("--enable-preview")
             }
         }
         //for (enableRedefinition in listOf(false, true)) {
@@ -100,6 +101,7 @@ fun Project.configureJvmRunJvm(isRootKorlibs: Boolean) {
                     }
                     val beforeJava9 = JvmAddOpens.beforeJava9
                     if (!beforeJava9) jvmArgs(project.korge.javaAddOpens)
+                    jvmArgs("--enable-preview")
                     mainClass.set(korge.jvmMainClassName)
                 }
             }

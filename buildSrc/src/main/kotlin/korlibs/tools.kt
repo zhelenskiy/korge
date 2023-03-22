@@ -134,11 +134,11 @@ fun Project.doOncePerProject(uniqueName: String, block: () -> Unit) {
     }
 }
 
-fun currentJavaVersion(): Int {
+fun currentJavaVersion(): Int = 23 /*{
     val versionElements = System.getProperty("java.version").split("\\.".toRegex()).toTypedArray() + arrayOf("-1", "-1")
     val discard = versionElements[0].toInt()
     return if (discard == 1) versionElements[1].toInt() else discard
-}
+}*/
 
 fun unzipTo(output: File, zipFileName: File) {
     ZipFile(zipFileName).use { zip ->

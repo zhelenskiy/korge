@@ -15,25 +15,12 @@ import kotlin.math.*
 /**
  * Useful for representing complete transforms: rotations, scales, translations, projections, etc.
  */
-data class Matrix4 private constructor(
-    private val data: FloatArray,
-    //val c0: Vector4, val c1: Vector4, val c2: Vector4, val c3: Vector4,
-
-    //val v00: Float, val v10: Float, val v20: Float, val v30: Float,
-    //val v01: Float, val v11: Float, val v21: Float, val v31: Float,
-    //val v02: Float, val v12: Float, val v22: Float, val v32: Float,
-    //val v03: Float, val v13: Float, val v23: Float, val v33: Float,
+value class Matrix4 private constructor(
+    val v00: Float, val v10: Float, val v20: Float, val v30: Float,
+    val v01: Float, val v11: Float, val v21: Float, val v31: Float,
+    val v02: Float, val v12: Float, val v22: Float, val v32: Float,
+    val v03: Float, val v13: Float, val v23: Float, val v33: Float,
 ) : IsAlmostEqualsF<Matrix4> {
-    init {
-        check(data.size == 16)
-    }
-    val v00: Float get() = data[0]; val v10: Float get() = data[1]; val v20: Float get() = data[2]; val v30: Float get() = data[3]
-    val v01: Float get() = data[4]; val v11: Float get() = data[5]; val v21: Float get() = data[6]; val v31: Float get() = data[7]
-    val v02: Float get() = data[8]; val v12: Float get() = data[9]; val v22: Float get() = data[10]; val v32: Float get() = data[11]
-    val v03: Float get() = data[12]; val v13: Float get() = data[13]; val v23: Float get() = data[14]; val v33: Float get() = data[15]
-
-    override fun equals(other: Any?): Boolean = other is Matrix4 && this.data.contentEquals(other.data)
-    override fun hashCode(): Int = data.contentHashCode()
 
     operator fun times(scale: Float): Matrix4 = Matrix4.fromColumns(c0 * scale, c1 * scale, c2 * scale, c3 * scale)
     operator fun times(that: Matrix4): Matrix4 = Matrix4.multiply(this, that)
@@ -136,7 +123,9 @@ data class Matrix4 private constructor(
     }
 
     fun copyToColumns(out: FloatArray = FloatArray(16), offset: Int = 0): FloatArray {
-        arraycopy(this.data, 0, out, offset, 16)
+        for (n in 0..<16) {
+            out[n + offset] = this.getAtIndex(n)
+        }
         return out
     }
     fun copyToRows(out: FloatArray = FloatArray(16), offset: Int = 0): FloatArray {
@@ -147,18 +136,6 @@ data class Matrix4 private constructor(
         return out
     }
 
-    private constructor(
-        v00: Float, v10: Float, v20: Float, v30: Float,
-        v01: Float, v11: Float, v21: Float, v31: Float,
-        v02: Float, v12: Float, v22: Float, v32: Float,
-        v03: Float, v13: Float, v23: Float, v33: Float,
-    ) : this(floatArrayOf(
-        v00, v10, v20, v30,
-        v01, v11, v21, v31,
-        v02, v12, v22, v32,
-        v03, v13, v23, v33,
-    ))
-
     constructor() : this(
         1f, 0f, 0f, 0f,
         0f, 1f, 0f, 0f,
@@ -166,13 +143,16 @@ data class Matrix4 private constructor(
         0f, 0f, 0f, 1f,
     )
 
-    val c0: Vector4F get() = Vector4F.fromArray(data, 0)
-    val c1: Vector4F get() = Vector4F.fromArray(data, 4)
-    val c2: Vector4F get() = Vector4F.fromArray(data, 8)
-    val c3: Vector4F get() = Vector4F.fromArray(data, 12)
-    fun c(column: Int): Vector4F {
-        if (column < 0 || column >= 4) error("Invalid column $column")
-        return Vector4F.fromArray(data, column * 4)
+    val c0: Vector4F get() = Vector4F(v00, v10, v20, v30)
+    val c1: Vector4F get() = Vector4F(v01, v11, v21, v31)
+    val c2: Vector4F get() = Vector4F(v02, v12, v22, v32)
+    val c3: Vector4F get() = Vector4F(v03, v13, v23, v33)
+    fun c(column: Int): Vector4F = when (column) {
+        0 -> c0
+        1 -> c1
+        2 -> c2
+        3 -> c3
+        else -> error("Invalid column $column")
     }
 
     val r0: Vector4F get() = Vector4F(v00, v01, v02, v03)
@@ -189,13 +169,37 @@ data class Matrix4 private constructor(
     }
 
     operator fun get(row: Int, column: Int): Float {
-        if (column !in 0..3 || row !in 0..3) error("Invalid index $row,$column")
-        return data[row * 4 + column]
+        when (row) {
+            0 -> when (column) {
+                0 -> return v00
+                1 -> return v10
+                2 -> return v20
+                3 -> return v30
+            }
+            1 -> when (column) {
+                0 -> return v01
+                1 -> return v11
+                2 -> return v21
+                3 -> return v31
+            }
+            2 -> when (column) {
+                0 -> return v02
+                1 -> return v12
+                2 -> return v22
+                3 -> return v32
+            }
+            3 -> when (column) {
+                0 -> return v03
+                1 -> return v13
+                2 -> return v23
+                3 -> return v33
+            }
+        }
+        error("Invalid index $row,$column")
     }
 
     fun getAtIndex(index: Int): Float {
-        if (index !in data.indices) error("Invalid index $index")
-        return data[index]
+        return get(index / 4, index % 4)
     }
 
     override fun toString(): String = buildString {
@@ -666,7 +670,7 @@ data class Matrix4 private constructor(
     }
 }
 
-data class TRS4(val translation: Vector4F, val rotation: Quaternion, val scale: Vector4F)
+value class TRS4(val translation: Vector4F, val rotation: Quaternion, val scale: Vector4F)
 
 fun Matrix4.toMatrix3(): Matrix3 = Matrix3.fromRows(
     v00, v01, v02,

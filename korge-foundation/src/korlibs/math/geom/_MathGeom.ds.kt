@@ -51,11 +51,11 @@ open class BVH1D<T>(
     }
 }
 
-data class Segment1D(val start: Double, val end: Double) {
+value class Segment1D(val start: Double, val end: Double) {
     constructor(start: Float, end: Float) : this(start.toDouble(), end.toDouble())
     val size: Double get() = end - start
 }
-data class Ray1D(val start: Double, val dir: Double) {
+value class Ray1D(val start: Double, val dir: Double) {
     constructor(start: Float, dir: Float) : this(start.toDouble(), dir.toDouble())
 }
 

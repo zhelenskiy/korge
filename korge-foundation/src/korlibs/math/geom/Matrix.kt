@@ -17,7 +17,7 @@ import kotlin.math.*
 //) {
 
 // a, b, c, d, tx and ty are BFloat21
-data class Matrix(
+value class Matrix(
     val a: Double, val b: Double, val c: Double, val d: Double,
     val tx: Double = 0.0, val ty: Double = 0.0
 ) : IsAlmostEquals<Matrix> {
@@ -196,6 +196,7 @@ data class Matrix(
 
     // @TODO: Is this order correct?
     fun preconcated(other: Matrix): Matrix = this * other
+    fun copy(a: Double = this.a, b: Double = this.b, c: Double = this.c, d: Double = this.d, tx: Double = this.tx, ty: Double = this.ty): Matrix = Matrix(a, b, c, d, tx, ty)
 
     companion object {
         val IDENTITY = Matrix(1.0, 0.0, 0.0, 1.0, 0.0, 0.0)
@@ -302,7 +303,7 @@ data class Matrix(
 }
 
 //@KormaValueApi
-data class MatrixTransform(
+value class MatrixTransform(
     val x: Double = 0.0, val y: Double = 0.0,
     val scaleX: Double = 1.0, val scaleY: Double = 1.0,
     val skewX: Angle = Angle.ZERO, val skewY: Angle = Angle.ZERO,

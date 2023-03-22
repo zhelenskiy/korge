@@ -6,7 +6,7 @@ import korlibs.number.*
 /**
  * A [top], [right], [bottom], [left] pack with FixedShort (16-bit) in the range of +-3275.9 (3.3 integer digits + 1 decimal digit)
  */
-data class Margin(
+value class Margin(
     val top: Double,
     val right: Double,
     val bottom: Double,
@@ -57,7 +57,7 @@ data class Margin(
 /**
  * A [top], [right], [bottom], [left] pack with Int)
  */
-data class MarginInt(
+value class MarginInt(
     val top: Int,
     val right: Int,
     val bottom: Int,

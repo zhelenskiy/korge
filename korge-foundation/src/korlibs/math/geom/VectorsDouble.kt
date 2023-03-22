@@ -9,13 +9,13 @@ typealias Point = Vector2D
 typealias Point2 = Vector2D
 typealias Point3 = Vector3D
 
-data class Vector3D(val x: Double, val y: Double, val z: Double)
-data class Vector4D(val x: Double, val y: Double, val z: Double, val w: Double)
+value class Vector3D(val x: Double, val y: Double, val z: Double)
+value class Vector4D(val x: Double, val y: Double, val z: Double, val w: Double)
 
 fun Vector3F.toDouble(): Vector3D = Vector3D(x.toDouble(), y.toDouble(), z.toDouble())
 fun Vector3D.toFloat(): Vector3F = Vector3F(x, y, z)
 
-data class Vector2D(val x: Double, val y: Double) : IsAlmostEquals<Vector2D> {
+value class Vector2D(val x: Double, val y: Double) : IsAlmostEquals<Vector2D> {
     //constructor(x: Float, y: Float) : this(float2PackOf(x, y))
     constructor(x: Float, y: Float) : this(x.toDouble(), y.toDouble())
     constructor(x: Int, y: Int) : this(x.toDouble(), y.toDouble())
@@ -32,6 +32,9 @@ data class Vector2D(val x: Double, val y: Double) : IsAlmostEquals<Vector2D> {
     //constructor(x: Float, y: Float) : this(x.toDouble(), y.toDouble())
 
     fun copy(x: Float = this.x.toFloat(), y: Float = this.y.toFloat()): Vector2D = Vector2D(x, y)
+    fun copy(x: Double = this.x, y: Double = this.y): Vector2D = Vector2D(x, y)
+    operator fun component1(): Double = x
+    operator fun component2(): Double = y
 
     inline operator fun unaryMinus(): Vector2D = Vector2D(-x, -y)
     inline operator fun unaryPlus(): Vector2D = this
